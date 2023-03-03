@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import axios from 'axios'
 import { Navigate, useNavigate } from 'react-router-dom'
 
-
 function Join() {
   const [id, setId] = useState('')
   const [pw, setPw] = useState('')
@@ -32,15 +31,15 @@ function Join() {
 
   const HandleJoin = async () => {
     try {
-      const data={
+      const data = {
         email: id,
         password: pw,
         confirm: pw,
-        nickname: nickname
-      };
-      await axios.post(`${}/api/signup`)
+        nickname: nickname,
+      }
+      // await axios.post(`${}/api/signup`)
       alert('회원가입 성공!')
-      Navigate('/');
+      // Navigate('/');
     } catch {}
   }
 

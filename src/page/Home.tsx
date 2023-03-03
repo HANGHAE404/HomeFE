@@ -3,16 +3,15 @@ import styled from 'styled-components'
 import Icon from '../asset/Icon'
 import MenuCategorys from '../components/MenuCategory'
 import CarouselComp from './CarouselComp'
-import { cateGoryData } from '../constants/dummyData'
+import { cateGoryData, todayDealData } from '../constants/dummyData'
 import BoxItem from '../components/BoxItem'
-console.log(cateGoryData)
 function Home() {
   return (
     <div className="Home">
       <CarouselComp />
       <MenuCategorys cateGoryData={cateGoryData} />
       <Wrapper>
-        <BoxItem />
+        <BoxItem data={todayDealData} />
       </Wrapper>
     </div>
   )
