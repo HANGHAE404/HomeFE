@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Carousel from 'nuka-carousel/lib/carousel'
 import styled from 'styled-components'
 function CarouselComp() {
+  const [index, setIndex] = useState(1)
   const Data = [
     {
       id: 1,
@@ -24,9 +25,17 @@ function CarouselComp() {
       src: 'https://image.ohou.se/i/bucketplace-v2-development/uploads/store/banners/store_home_banners/167757531484370577.png?w=2560 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/store/banners/store_home_banners/167757531484370577.png?w=2560 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/store/banners/store_home_banners/167757531484370577.png?w=2560 3x',
     },
   ]
+  const onClickArrow = (num: number) => {
+    if (Data.length <= index) {
+      setIndex(0 + num)
+    } else {
+      setIndex(index + num)
+    }
+  }
   return (
     <Wrapper>
       <Carousel
+        slideIndex={index}
         renderCenterLeftControls={({ previousSlide }) => (
           <Button
             onClick={previousSlide}
@@ -40,6 +49,9 @@ function CarouselComp() {
           >
             {/* <i className="fa fa-arrow-left" /> */}
             <svg
+              onClick={() => {
+                onClickArrow(-1)
+              }}
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -68,6 +80,9 @@ function CarouselComp() {
           >
             {/* <i className="fa fa-arrow-right" /> */}
             <svg
+              onClick={() => {
+                onClickArrow(+1)
+              }}
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -88,8 +103,8 @@ function CarouselComp() {
         autoplayInterval={2000}
         wrapAround={true}
       >
-        {Data.map((pd: any, idx) => (
-          <div className="relative pb-96" key={pd.id}>
+        {Data.map((pd: { id: number; src: string }) => (
+          <div key={pd.id}>
             <img
               src={pd.src}
               alt={`${pd.id}`}
@@ -98,16 +113,40 @@ function CarouselComp() {
           </div>
         ))}
       </Carousel>
+      <PageNum>
+        {/* {Data.map((pd: { id: number; src: string }, idx) => (
+          <div key={idx} onClick={() => setIndex(idx)}>
+            {index}
+          </div>
+        ))} */}
+        {index}/{Data.length}
+      </PageNum>
     </Wrapper>
   )
 }
-const Wrapper = styled.div``
+const Wrapper = styled.div`
+  position: relative;
+`
 const Button = styled.button`
   opacity: 0;
-
   ${Wrapper}:hover & {
     background-color: #000;
     opacity: 0.8;
   }
+`
+const PageNum = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 60px;
+  height: 30px;
+  background-color: #000;
+  opacity: 0.5;
+  color: white;
+  right: 250px;
+  bottom: 30px;
+  border-radius: 10px;
+  font-weight: bold;
 `
 export default CarouselComp
