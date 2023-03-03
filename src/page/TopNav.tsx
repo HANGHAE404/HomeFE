@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { getUser, removeUser } from '../util/localstorage'
 import '../index.css'
 import { Link } from 'react-router-dom'
+import Logo from '../asset/Logo'
 const TopNav = ({ children, user }: any) => {
   const userInfo = getUser()
 
@@ -25,11 +26,7 @@ const TopNav = ({ children, user }: any) => {
           <InNavWrap>
             <div>
               <Link to="/">
-                <img
-                  style={{ width: '80px' }}
-                  src={process.env.PUBLIC_URL + '/logo.png'}
-                  alt="logo"
-                />
+                <Logo />
               </Link>
             </div>
             <InNav>
@@ -41,11 +38,7 @@ const TopNav = ({ children, user }: any) => {
           <InNavWrap>
             <div>
               <Link to="/">
-                <img
-                  style={{ width: '80px' }}
-                  src={process.env.PUBLIC_URL + '/logo.png'}
-                  alt="logo"
-                />
+                <Logo />
               </Link>
             </div>
             <InNav>
