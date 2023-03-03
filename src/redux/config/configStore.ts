@@ -6,5 +6,4 @@ const store = configureStore({
     login,
   },
 })
-
 export default store
