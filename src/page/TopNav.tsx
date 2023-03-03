@@ -96,6 +96,7 @@ const TopNav = ({ children, user }: any) => {
 const Nav = styled.div`
   background-color: white;
   /* padding: 0px 60px; */
+
   font-family: 'LINESeedKR-Bd';
   filter: drop-shadow(2px 4px 6px black);
 `
@@ -126,6 +127,8 @@ const Button = styled.button`
   color: black;
 `
 const Ulwrappdiv = styled.div`
+  max-width: 1280px;
+  margin: 0 auto;
   padding: 0 60px;
   border-top: 1px solid #eaedef;
   border-bottom: 1px solid #eaedef;
