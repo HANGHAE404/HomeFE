@@ -5,12 +5,12 @@ import styled from 'styled-components'
 import axios from 'axios'
 import { Navigate, useNavigate } from 'react-router-dom'
 
+
 function Join() {
-  const [state, setState] = useState({
-    id: '',
-    pw: '',
-    nickname: '',
-  })
+  const [id, setId] = useState('')
+  const [pw, setPw] = useState('')
+  const [nickname, setNickname] = useState('')
+
   const selectbox = () => {
     return (
       <select>
@@ -23,12 +23,24 @@ function Join() {
         <option key="kakao" value="kakao">
           kakao.com
         </option>
+        <option key="outlook" value="outlook">
+          outlook.com
+        </option>
       </select>
     )
   }
 
   const HandleJoin = async () => {
     try {
+      const data={
+        email: id,
+        password: pw,
+        confirm: pw,
+        nickname: nickname
+      };
+      await axios.post(`${}/api/signup`)
+      alert('회원가입 성공!')
+      Navigate('/');
     } catch {}
   }
 
@@ -55,15 +67,20 @@ function Join() {
         <input type="text"></input>
       </StInputNickname>
       <br></br>
-      <StjoinButton>회원가입하기</StjoinButton>
+      <StJoinButton>회원가입하기</StJoinButton>
     </Stdiv>
   )
 }
 
 const Stdiv = styled.div`
-  margin: 50px;
-  padding: 20px;
-  align-items: center;
+  margin: 0px auto;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border: 1px solid black;
+  width: 650px;
 `
 
 const StInputEmail = styled.div`
@@ -87,6 +104,8 @@ const StInputNickname = styled.div`
   align-items: center;
 `
 
-const StjoinButton = styled.button``
+const StJoinButton = styled.button`
+  margin: 0 auto;
+`
 
 export default Join

@@ -62,7 +62,7 @@ const TopNav = ({ children, user }: any) => {
                 </BoxWapper>
               </div>
               <InNav>
-                <Button onClick={() => navigate('/login')}>로그인</Button>
+                <Button onClick={() => navigate('/Login')}>로그인</Button>
                 <Button onClick={() => navigate('/join')}>회원가입</Button>
                 <Button onClick={() => navigate('/')}>글쓰기</Button>
               </InNav>
