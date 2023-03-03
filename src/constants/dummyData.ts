@@ -1,4 +1,6 @@
-export const cateGoryData = Object.freeze([
+Object.freeze([])
+
+export const cateGoryData = [
   {
     id: 1,
     src: 'https://image.ohou.se/image/resize/bucketplace-v2-development/uploads-shortcut-store_home_shortcut_sets-167757700841986912.png/512/none',
@@ -59,4 +61,4 @@ export const cateGoryData = Object.freeze([
     iconText: '',
     wordText: '기획전',
   },
-])
+]
