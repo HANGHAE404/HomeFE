@@ -16,21 +16,20 @@ const MenuCategorys = ({ cateGoryData }: IDataArray): React.ReactElement => {
       <IconUl>
         {cateGoryData &&
           cateGoryData?.map((el: any) => (
-            <>
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  cursor: 'pointer',
-                }}
-              >
-                <IconLi key={el.id}>
-                  <Img src={el.src} alt={el.id} />
-                  {el.iconText !== '' ? <Icon Text={el.iconText}></Icon> : null}
-                </IconLi>
-                <IconText>{el.wordText}</IconText>
-              </div>
-            </>
+            <div
+              key={el.id}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                cursor: 'pointer',
+              }}
+            >
+              <IconLi key={el.id}>
+                <Img src={el.src} alt={el.id} />
+                {el.iconText !== '' ? <Icon Text={el.iconText}></Icon> : null}
+              </IconLi>
+              <IconText>{el.wordText}</IconText>
+            </div>
           ))}
       </IconUl>
     </MenuCategory>
