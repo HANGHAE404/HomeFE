@@ -13,7 +13,7 @@ const Router = () => {
         <Route element={<TopNav />}>
           <Route path="/" element={<Home />} />
           <Route path="/join" element={<Join />} />
-          <Route path="/Login" element={<Login />} />
+          <Route path="/login" element={<Login />} />
         </Route>
       </Routes>
     </BrowserRouter>
