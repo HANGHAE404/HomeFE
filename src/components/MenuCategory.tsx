@@ -43,6 +43,7 @@ const MenuCategory = styled.div`
 const IconUl = styled.div`
   height: 180px;
   display: flex;
+  width: calc(1160px / 10);
   align-items: center;
 `
 const IconLi = styled.div`

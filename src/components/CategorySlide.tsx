@@ -32,6 +32,7 @@ const CategorySlide = ({ data }: IdataObj) => {
 
 const Wrapper = styled.div`
   margin-top: 50px;
+  cursor: pointer;
 `
 const Text = styled.div`
   color: #424242;

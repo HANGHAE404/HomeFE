@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import BlueStar from '../asset/BlueStar'
 import FreeDelivery from '../asset/FreeDelivery'
 import SpecialPrice from '../asset/SpecialPrice'
 
@@ -17,12 +18,13 @@ interface Idata {
 }
 interface IobjData {
   data: Idata[]
+  text: string
 }
-const BoxItem = ({ data }: IobjData): React.ReactElement => {
+const BoxItem = ({ data, text }: IobjData): React.ReactElement => {
   return (
     <Wrapper>
       <TopTitle>
-        <TitleEl>오늘의딜</TitleEl>
+        <TitleEl>{text}</TitleEl>
         <MoreEl>더보기</MoreEl>
       </TopTitle>
       <BoxWrap>
@@ -33,10 +35,17 @@ const BoxItem = ({ data }: IobjData): React.ReactElement => {
               <ContentWrap>
                 <Title>{el.title}</Title>
                 <Contents>{el.contents}</Contents>
-                <div>{el.percentSale}</div>
-                <div>{el.price}</div>
-                <div>{el.star}</div>
-                <div>{el.review}</div>
+                <PriceWrap>
+                  <PricePercent>{el.percentSale}%</PricePercent>
+                  <Price>{el.price}원</Price>
+                </PriceWrap>
+                <ReviwStarWrap>
+                  <BlueStarWrap>
+                    <BlueStar />
+                    {el.star}
+                  </BlueStarWrap>
+                  <Review>리뷰{el.review}</Review>
+                </ReviwStarWrap>
                 {el.specialPrice === true ? <SpecialPrice /> : null}
                 {el.freeDilivery === true ? <FreeDelivery /> : null}
               </ContentWrap>
@@ -46,6 +55,19 @@ const BoxItem = ({ data }: IobjData): React.ReactElement => {
     </Wrapper>
   )
 }
+const BlueStarWrap = styled.div`
+  display: flex;
+  align-items: center;
+`
+const ReviwStarWrap = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+`
+const PriceWrap = styled.div`
+  display: flex;
+  align-items: center;
+`
 const Wrapper = styled.div`
   margin-top: 50px;
 `
@@ -70,11 +92,15 @@ export const TitleEl = styled.div`
 `
 const BoxWrap = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `
 const BoxEl = styled.div`
-  width: calc(100% / 4);
+  width: calc((100% / 4) - 12px);
   margin-right: 15px;
   position: relative;
+  &:nth-of-type(4n) {
+    margin-right: inherit;
+  }
 `
 export const Img = styled.img`
   /* position: absolute;
@@ -96,7 +122,24 @@ const Contents = styled.div`
   font-size: 13px;
   font-weight: 400;
   line-height: 17px;
-  max-height: 34px;
   -webkit-line-clamp: 2;
+`
+const PricePercent = styled.div`
+  color: #35c5f0;
+  font-weight: bold;
+  margin-right: 4px;
+`
+const Price = styled.div`
+  color: #000;
+  margin-right: 4px;
+  font-size: 17px;
+  line-height: 23px;
+  font-weight: 700;
+`
+const Review = styled.div`
+  font-size: 12px;
+  color: #9e9e9e;
+  line-height: 16px;
+  font-weight: 700;
 `
 export default BoxItem

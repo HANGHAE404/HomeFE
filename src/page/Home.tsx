@@ -6,11 +6,11 @@ import CarouselComp from './CarouselComp'
 import {
   cateGoryData,
   CategorySlideData,
+  PopProductsData,
   todayDealData,
 } from '../constants/dummyData'
 import BoxItem from '../components/BoxItem'
 import CategorySlide from '../components/CategorySlide'
-import PopProducts from '../components/PopProducts'
 function Home() {
   return (
     <div className="Home">
@@ -19,9 +19,9 @@ function Home() {
       <MenuCategorys cateGoryData={cateGoryData} />
       {/* main */}
       <Wrapper>
-        <BoxItem data={todayDealData} />
+        <BoxItem data={todayDealData} text={'오늘의딜'} />
         <CategorySlide data={CategorySlideData} />
-        <PopProducts data={[]} />
+        <BoxItem data={PopProductsData} text={'인기상품'} />
       </Wrapper>
     </div>
   )
