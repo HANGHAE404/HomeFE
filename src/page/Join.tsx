@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
+
 import { useNavigate, Navigate } from 'react-router-dom'
-import MockAdapter from 'axios-mock-adapter'
+
+
+
 
 function Join() {
   const [formData, setFormData] = useState<{
@@ -37,6 +40,7 @@ function Join() {
 
   const HandleJoin = async () => {
     try {
+
       const { email, password, confirm, nickname } = formData
       const data = {
         email,
@@ -60,6 +64,7 @@ function Join() {
     } catch (error) {
       console.log(error)
     }
+
   }
 
   return (

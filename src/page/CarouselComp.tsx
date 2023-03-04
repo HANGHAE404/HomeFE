@@ -37,7 +37,7 @@ function CarouselComp() {
       <Carousel
         slideIndex={index}
         renderCenterLeftControls={({ previousSlide }) => (
-          <Button
+          <SlideButton
             onClick={previousSlide}
             style={{
               width: '48px',
@@ -65,10 +65,10 @@ function CarouselComp() {
                 d="M15.75 19.5L8.25 12l7.5-7.5"
               />
             </svg>
-          </Button>
+          </SlideButton>
         )}
         renderCenterRightControls={({ nextSlide }) => (
-          <Button
+          <SlideButton
             onClick={nextSlide}
             style={{
               width: '48px',
@@ -97,7 +97,7 @@ function CarouselComp() {
                 style={{ color: 'white' }}
               />
             </svg>
-          </Button>
+          </SlideButton>
         )}
         autoplay={true}
         autoplayInterval={2000}
@@ -127,7 +127,7 @@ function CarouselComp() {
 const Wrapper = styled.div`
   position: relative;
 `
-const Button = styled.button`
+export const SlideButton = styled.button`
   opacity: 0;
   ${Wrapper}:hover & {
     background-color: #000;
