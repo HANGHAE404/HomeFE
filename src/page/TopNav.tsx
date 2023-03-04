@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { getUser, removeUser } from '../util/localstorage'
@@ -8,6 +8,8 @@ import Logo from '../asset/Logo'
 import SearchBox from '../asset/SearchBox'
 import Cart from '../asset/Cart'
 import NewIcon from '../asset/NewIcon'
+import Ranking from '../components/Ranking'
+
 const TopNav = ({ children, user }: any) => {
   const userInfo = getUser()
 
@@ -85,6 +87,7 @@ const TopNav = ({ children, user }: any) => {
                 <li>프리미엄</li>
                 <li>기획전</li>
               </Ulwrapp>
+              <Ranking />
             </Ulwrappdiv>
           </>
         )}
