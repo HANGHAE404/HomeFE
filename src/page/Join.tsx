@@ -1,46 +1,70 @@
-import React from 'react'
-import { useState } from 'react'
-import { text } from 'stream/consumers'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
-import { Navigate, useNavigate } from 'react-router-dom'
+
+import { useNavigate, Navigate } from 'react-router-dom'
+
+
+
 
 function Join() {
-  const [id, setId] = useState('')
-  const [pw, setPw] = useState('')
-  const [nickname, setNickname] = useState('')
+  const [formData, setFormData] = useState<{
+    email: string
+    password: string
+    confirm: string
+    nickname: string
+  }>({
+    email: '',
+    password: '',
+    confirm: '',
+    nickname: '',
+  })
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target
+    setFormData((prevState) => ({ ...prevState, [name]: value }))
+  }
 
   const selectbox = () => {
     return (
       <select>
-        <option key="gmail" value="gmail">
-          gmail.com
-        </option>
-        <option key="naver" value="naver">
-          naver.com
-        </option>
-        <option key="kakao" value="kakao">
-          kakao.com
-        </option>
-        <option key="outlook" value="outlook">
-          outlook.com
-        </option>
+        <option value="gmail">gmail.com</option>
+        <option value="naver">naver.com</option>
+        <option value="kakao">kakao.com</option>
+        <option value="outlook">outlook.com</option>
       </select>
     )
   }
 
+  const Navigate = useNavigate()
+
   const HandleJoin = async () => {
     try {
+
+      const { email, password, confirm, nickname } = formData
       const data = {
-        email: id,
-        password: pw,
-        confirm: pw,
-        nickname: nickname,
+        email,
+        password,
+        confirm,
+        nickname,
       }
-      // await axios.post(`${}/api/signup`)
-      alert('회원가입 성공!')
-      // Navigate('/');
-    } catch {}
+      console.log(data)
+      const mock = new MockAdapter(axios)
+      mock.onPost('api/signup').reply(200, {
+        data: {
+          success: true,
+        },
+      })
+
+      const response = await axios.post(`/api/signup`, data)
+      if (response.data.success) {
+        alert('회원가입 성공!')
+        Navigate('/')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+
   }
 
   return (
@@ -48,25 +72,46 @@ function Join() {
       <h1>회원가입</h1>
       <StInputEmail>
         <p>이메일</p>
-        <input type="text"></input>@{selectbox()}
+        <input
+          type="text"
+          name="email"
+          value={formData.email}
+          onChange={handleInputChange}
+        ></input>
+        @{selectbox()}
       </StInputEmail>
 
       <StInputPw>
         <h1>비밀번호</h1>
         <p>영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</p>
-        <input type="text"></input>
+        <input
+          type="text"
+          name="password"
+          value={formData.password}
+          onChange={handleInputChange}
+        ></input>
       </StInputPw>
       <StConfirmPw>
         <h1>비밀번호 확인</h1>
-        <input type="text"></input>
+        <input
+          type="text"
+          name="confirm"
+          value={formData.confirm}
+          onChange={handleInputChange}
+        ></input>
       </StConfirmPw>
       <StInputNickname>
         <h1>닉네임</h1>
-        <p>다른 유져와 겹치지 않도록 입력해주세요.</p>
-        <input type="text"></input>
+        <p>다른 유저와 겹치지 않도록 입력해주세요.</p>
+        <input
+          type="text"
+          name="nickname"
+          value={formData.nickname}
+          onChange={handleInputChange}
+        ></input>
       </StInputNickname>
       <br></br>
-      <StJoinButton>회원가입하기</StJoinButton>
+      <StJoinButton onClick={HandleJoin}>회원가입하기</StJoinButton>
     </Stdiv>
   )
 }
