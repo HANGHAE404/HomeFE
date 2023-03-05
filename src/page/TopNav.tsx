@@ -9,6 +9,7 @@ import SearchBox from '../asset/SearchBox'
 import Cart from '../asset/Cart'
 import NewIcon from '../asset/NewIcon'
 import Ranking from '../components/Ranking'
+import Rankingtwo from '../components/Rankingtwo'
 
 const TopNav = ({ children, user }: any) => {
   const userInfo = getUser()
@@ -87,7 +88,11 @@ const TopNav = ({ children, user }: any) => {
                 <li>프리미엄</li>
                 <li>기획전</li>
               </Ulwrapp>
-              <Ranking />
+              <span style={{ width: '200px' }}>
+                <Rankingtwo />
+              </span>
+
+              {/* <Ranking /> */}
             </Ulwrappdiv>
           </>
         )}
@@ -130,6 +135,9 @@ const Button = styled.button`
   color: black;
 `
 const Ulwrappdiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 60px;
@@ -141,7 +149,13 @@ const Ulwrapp = styled.ul`
   gap: 30px;
   height: 50px;
   align-items: center;
+  > li {
+    &:focus {
+      border-bottom: 1px solid red;
+    }
+  }
 `
+
 const InNav = styled.div`
   font-family: 'KCC-DodamdodamR';
   display: flex;
