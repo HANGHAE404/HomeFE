@@ -25,7 +25,7 @@ function Rankingtwo() {
     <CarouselWrap className="carousel">
       <Slider {...settings}>
         {data.map((el) => (
-          <div>
+          <div key={el.rank}>
             <span style={{ fontWeight: 'bold' }}>{el.rank}</span>.&nbsp;
             {el.text}
           </div>
@@ -36,6 +36,9 @@ function Rankingtwo() {
 }
 const CarouselWrap = styled.div`
   width: auto;
+  @media screen and (max-width: 1200px) {
+    display: none;
+  }
 `
 
 export default Rankingtwo

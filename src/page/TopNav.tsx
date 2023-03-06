@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { getUser, removeUser } from '../util/localstorage'
 import '../index.css'
@@ -13,7 +13,7 @@ import Rankingtwo from '../components/Rankingtwo'
 
 const TopNav = ({ children, user }: any) => {
   const userInfo = getUser()
-
+  const { pathname } = useLocation()
   const navigate = useNavigate()
   const logoutHandler = () => {
     if (window.confirm('로그아웃 하시겠습니까?')) {
@@ -72,21 +72,29 @@ const TopNav = ({ children, user }: any) => {
             </InNavWrap>
             <Ulwrappdiv>
               <Ulwrapp>
-                <li>쇼핑홈</li>
-                <li>카테고리</li>
-                <li>베스트</li>
-                <li>오늘의딜</li>
-                <li>
+                <Item selected={pathname === '/'}>
+                  <Link to="/">쇼핑홈</Link>
+                </Item>
+                <Item selected={pathname === '/category'}>
+                  <Link to="/category">카테고리</Link>
+                </Item>
+                <Item selected={pathname === '/best'}>
+                  <Link to="/best">베스트</Link>
+                </Item>
+                <Item selected={pathname === '/todaydeal'}>
+                  <Link to="/todaydeal">오늘의딜</Link>
+                </Item>
+                <Item selected={pathname === '/ohgoods'}>
                   오!굿즈
                   <NewIcon />
-                </li>
-                <li>
+                </Item>
+                <Item>
                   빠른배송
                   <NewIcon />
-                </li>
-                <li>오!쇼룸</li>
-                <li>프리미엄</li>
-                <li>기획전</li>
+                </Item>
+                <Item>오!쇼룸</Item>
+                <Item>프리미엄</Item>
+                <Item>기획전</Item>
               </Ulwrapp>
               <span style={{ width: '200px' }}>
                 <Rankingtwo />
@@ -101,6 +109,18 @@ const TopNav = ({ children, user }: any) => {
     </div>
   )
 }
+const Item = styled.li<{
+  selected?: boolean
+}>`
+  padding: 12px 6px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  color: ${(props) => (props.selected ? '#35C5F0' : null)};
+  font-weight: ${(props) => (props.selected ? 'bold' : null)};
+  border-bottom: ${(props) => (props.selected ? '2px solid #35C5F0' : null)};
+`
+
 const Nav = styled.div`
   background-color: white;
   /* padding: 0px 60px; */
@@ -138,11 +158,14 @@ const Ulwrappdiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1280px;
+  width: 1280px;
   margin: 0 auto;
   padding: 0 60px;
   border-top: 1px solid #eaedef;
   border-bottom: 1px solid #eaedef;
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
 `
 const Ulwrapp = styled.ul`
   display: flex;
