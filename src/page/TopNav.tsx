@@ -99,7 +99,6 @@ const TopNav = ({ children, user }: any) => {
               <span style={{ width: '200px' }}>
                 <Rankingtwo />
               </span>
-
               {/* <Ranking /> */}
             </Ulwrappdiv>
           </>

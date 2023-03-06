@@ -7,7 +7,7 @@ import Login from '../page/Login'
 import DetailPage from '../page/DetailPage'
 import Category from '../page/Category'
 import Best from '../page/Best'
-import Todaydeal from '../components/Todaydeal'
+import Todaydeal from '../page/Todaydeal'
 
 const Router = () => {
   const userInfo = getUser()
