@@ -60,7 +60,7 @@ const TopNav = ({ children, user }: any) => {
               </div>
               <div>
                 <BoxWapper>
-                  <Cart />
+                  <Button onClick={() => navigate('Cart')}>🛒</Button>
                 </BoxWapper>
               </div>
               <InNav>

@@ -4,9 +4,6 @@ import axios from 'axios'
 
 import { useNavigate, Navigate } from 'react-router-dom'
 
-
-
-
 function Join() {
   const [formData, setFormData] = useState<{
     email: string
@@ -40,7 +37,6 @@ function Join() {
 
   const HandleJoin = async () => {
     try {
-
       const { email, password, confirm, nickname } = formData
       const data = {
         email,
@@ -49,12 +45,12 @@ function Join() {
         nickname,
       }
       console.log(data)
-      const mock = new MockAdapter(axios)
-      mock.onPost('api/signup').reply(200, {
-        data: {
-          success: true,
-        },
-      })
+      // const mock = new MockAdapter(axios)
+      // mock.onPost('api/signup').reply(200, {
+      //   data: {
+      //     success: true,
+      //   },
+      // })
 
       const response = await axios.post(`/api/signup`, data)
       if (response.data.success) {
@@ -64,7 +60,6 @@ function Join() {
     } catch (error) {
       console.log(error)
     }
-
   }
 
   return (
