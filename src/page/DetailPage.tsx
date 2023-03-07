@@ -8,6 +8,7 @@ import SpecialPrice from '../asset/SpecialPrice'
 import { cartCreate } from '../redux/modules/cart'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { addTodos, getTodos } from '../axios/cart'
+import { getUser } from '../util/localstorage'
 
 interface IProduct {
   postId: number
@@ -35,8 +36,7 @@ function DetailPage() {
   })
 
   const { isLoading, isError, data: dataSet } = useQuery('todos', getTodos)
-  console.log(dataSet)
-
+  const userInfo = getUser()
   let data = {
     postId: 1,
     userId: 1,
@@ -118,6 +118,8 @@ function DetailPage() {
   const params = useParams()
 
   const CartBtnHandler = () => {
+    if (!userInfo) {
+    }
     alert('장바구니에 담았습니다.')
     mutation.mutate(data) //react-query
   }
