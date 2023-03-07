@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { getUser, removeUser } from '../util/localstorage'
 import '../index.css'
@@ -9,11 +9,22 @@ import SearchBox from '../asset/SearchBox'
 import Cart from '../asset/Cart'
 import NewIcon from '../asset/NewIcon'
 import Ranking from '../components/Ranking'
-
+import Rankingtwo from '../components/Rankingtwo'
+import { useSelector } from 'react-redux'
+import { useQuery } from 'react-query'
+import { getTodos } from '../axios/cart'
 const TopNav = ({ children, user }: any) => {
   const userInfo = getUser()
-
+  const { pathname } = useLocation()
   const navigate = useNavigate()
+  const { isLoading, isError, data } = useQuery('todos', getTodos)
+
+  const crud = useSelector((state: any) => {
+    return state.cart.cart
+  }) //state는 중앙데이터 전체
+
+  console.log('crud.length : ', crud.length)
+
   const logoutHandler = () => {
     if (window.confirm('로그아웃 하시겠습니까?')) {
       removeUser()
@@ -27,19 +38,7 @@ const TopNav = ({ children, user }: any) => {
   return (
     <div>
       <Nav>
-        {userInfo ? (
-          <InNavWrap>
-            <div>
-              <Link to="/">
-                <Logo />
-              </Link>
-            </div>
-            <InNav>
-              <B>Hello ! {userInfo.sub}</B> 😃
-              <Button onClick={logoutHandler}>Logout</Button>
-            </InNav>
-          </InNavWrap>
-        ) : (
+        {userInfo ? null : ( // </InNavWrap> //   </InNav> //     <Button onClick={logoutHandler}>Logout</Button> //     <B>Hello ! {userInfo.sub}</B> 😃 //   <InNav> //   </div> //     </Link> //       <Logo /> //     <Link to="/"> //   <div> // <InNavWrap>
           <>
             <InNavWrap>
               <div>
@@ -59,8 +58,9 @@ const TopNav = ({ children, user }: any) => {
                 <Input type="text" placeholder="쇼핑검색" />
               </div>
               <div>
-                <BoxWapper>
-                  <Button onClick={() => navigate('Cart')}>🛒</Button>
+                <BoxWapper onClick={() => navigate('/cart')}>
+                  <Cart></Cart>
+                  <CartLength>{data && data.length}</CartLength>
                 </BoxWapper>
               </div>
               <InNav>
@@ -71,23 +71,34 @@ const TopNav = ({ children, user }: any) => {
             </InNavWrap>
             <Ulwrappdiv>
               <Ulwrapp>
-                <li>쇼핑홈</li>
-                <li>카테고리</li>
-                <li>베스트</li>
-                <li>오늘의딜</li>
-                <li>
+                <Item selected={pathname === '/'}>
+                  <Link to="/">쇼핑홈</Link>
+                </Item>
+                <Item selected={pathname === '/category'}>
+                  <Link to="/category">카테고리</Link>
+                </Item>
+                <Item selected={pathname === '/best'}>
+                  <Link to="/best">베스트</Link>
+                </Item>
+                <Item selected={pathname === '/todaydeal'}>
+                  <Link to="/todaydeal">오늘의딜</Link>
+                </Item>
+                <Item selected={pathname === '/ohgoods'}>
                   오!굿즈
                   <NewIcon />
-                </li>
-                <li>
+                </Item>
+                <Item>
                   빠른배송
                   <NewIcon />
-                </li>
-                <li>오!쇼룸</li>
-                <li>프리미엄</li>
-                <li>기획전</li>
+                </Item>
+                <Item>오!쇼룸</Item>
+                <Item>프리미엄</Item>
+                <Item>기획전</Item>
               </Ulwrapp>
-              <Ranking />
+              <span style={{ width: '200px' }}>
+                <Rankingtwo />
+              </span>
+              {/* <Ranking /> */}
             </Ulwrappdiv>
           </>
         )}
@@ -96,6 +107,32 @@ const TopNav = ({ children, user }: any) => {
     </div>
   )
 }
+
+const CartLength = styled.div`
+  background-color: red;
+  color: white;
+  width: 17px;
+  height: 17px;
+  border-radius: 15px;
+  font-size: 13px;
+  position: absolute;
+  padding-top: 1px;
+  top: -6px;
+  padding-left: 5px;
+  left: 9px;
+`
+const Item = styled.li<{
+  selected?: boolean
+}>`
+  padding: 12px 6px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  color: ${(props) => (props.selected ? '#35C5F0' : null)};
+  font-weight: ${(props) => (props.selected ? 'bold' : null)};
+  border-bottom: ${(props) => (props.selected ? '2px solid #35C5F0' : null)};
+`
+
 const Nav = styled.div`
   background-color: white;
   /* padding: 0px 60px; */
@@ -108,6 +145,7 @@ const MenuUl = styled.ul`
   gap: 50px;
 `
 const BoxWapper = styled.div`
+  position: relative;
   width: 20px;
 `
 const BoxWapperAbs = styled(BoxWapper)`
@@ -130,18 +168,33 @@ const Button = styled.button`
   color: black;
 `
 const Ulwrappdiv = styled.div`
-  max-width: 1280px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 1280px;
   margin: 0 auto;
   padding: 0 60px;
   border-top: 1px solid #eaedef;
   border-bottom: 1px solid #eaedef;
+  @media screen and (max-width: 1200px) {
+    width: 100%;
+  }
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
 `
 const Ulwrapp = styled.ul`
   display: flex;
   gap: 30px;
   height: 50px;
   align-items: center;
+  > li {
+    &:focus {
+      border-bottom: 1px solid red;
+    }
+  }
 `
+
 const InNav = styled.div`
   font-family: 'KCC-DodamdodamR';
   display: flex;

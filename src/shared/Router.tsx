@@ -4,6 +4,10 @@ import { getUser } from '../util/localstorage'
 import Home from '../page/Home'
 import Join from '../page/Join'
 import Login from '../page/Login'
+import DetailPage from '../page/DetailPage'
+import Category from '../page/Category'
+import Best from '../page/Best'
+import Todaydeal from '../page/Todaydeal'
 
 const Router = () => {
   const userInfo = getUser()
@@ -14,6 +18,11 @@ const Router = () => {
           <Route path="/" element={<Home />} />
           <Route path="/join" element={<Join />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/DetailPage/:id" element={<DetailPage />} />
+          {/* 아래는 후순위 스코프초과  */}
+          <Route path="/category" element={<Category />} />
+          <Route path="/best" element={<Best />} />
+          <Route path="/todaydeal" element={<Todaydeal />} />
         </Route>
       </Routes>
     </BrowserRouter>

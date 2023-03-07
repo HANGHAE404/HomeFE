@@ -25,20 +25,17 @@ function CarouselComp() {
       src: 'https://image.ohou.se/i/bucketplace-v2-development/uploads/store/banners/store_home_banners/167757531484370577.png?w=2560 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/store/banners/store_home_banners/167757531484370577.png?w=2560 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/store/banners/store_home_banners/167757531484370577.png?w=2560 3x',
     },
   ]
-  const onClickArrow = (num: number) => {
-    if (Data.length <= index) {
-      setIndex(0 + num)
-    } else {
-      setIndex(index + num)
-    }
-  }
+
   return (
     <Wrapper>
       <Carousel
         slideIndex={index}
         renderCenterLeftControls={({ previousSlide }) => (
           <SlideButton
-            onClick={previousSlide}
+            onClick={() => {
+              previousSlide()
+              setIndex(index + 1)
+            }}
             style={{
               width: '48px',
               height: '48px',
@@ -49,9 +46,6 @@ function CarouselComp() {
           >
             {/* <i className="fa fa-arrow-left" /> */}
             <svg
-              onClick={() => {
-                onClickArrow(-1)
-              }}
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -69,7 +63,10 @@ function CarouselComp() {
         )}
         renderCenterRightControls={({ nextSlide }) => (
           <SlideButton
-            onClick={nextSlide}
+            onClick={() => {
+              nextSlide()
+              setIndex(index - 1)
+            }}
             style={{
               width: '48px',
               height: '48px',
@@ -80,9 +77,6 @@ function CarouselComp() {
           >
             {/* <i className="fa fa-arrow-right" /> */}
             <svg
-              onClick={() => {
-                onClickArrow(+1)
-              }}
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"

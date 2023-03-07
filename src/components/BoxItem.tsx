@@ -1,4 +1,6 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import BlueStar from '../asset/BlueStar'
 import FreeDelivery from '../asset/FreeDelivery'
@@ -15,12 +17,16 @@ interface Idata {
   title: string
   contents: string
   percentSale: number
+  category?: string
 }
 interface IobjData {
   data: Idata[]
   text: string
 }
 const BoxItem = ({ data, text }: IobjData): React.ReactElement => {
+  // useEffect(() => {
+  //   axios.get('/api/goods/?start=${0}1&last=${4}) ')
+  // }, [])
   return (
     <Wrapper>
       <TopTitle>
@@ -31,24 +37,26 @@ const BoxItem = ({ data, text }: IobjData): React.ReactElement => {
         {data &&
           data?.map((el) => (
             <BoxEl key={el.id}>
-              <Img src={el.src} />
-              <ContentWrap>
-                <Title>{el.title}</Title>
-                <Contents>{el.contents}</Contents>
-                <PriceWrap>
-                  <PricePercent>{el.percentSale}%</PricePercent>
-                  <Price>{el.price}원</Price>
-                </PriceWrap>
-                <ReviwStarWrap>
-                  <BlueStarWrap>
-                    <BlueStar />
-                    {el.star}
-                  </BlueStarWrap>
-                  <Review>리뷰{el.review}</Review>
-                </ReviwStarWrap>
-                {el.specialPrice === true ? <SpecialPrice /> : null}
-                {el.freeDilivery === true ? <FreeDelivery /> : null}
-              </ContentWrap>
+              <Link to={`/detailpage/${el.id}`}>
+                <Img src={el.src} />
+                <ContentWrap>
+                  <Title>{el.title}</Title>
+                  <Contents>{el.contents}</Contents>
+                  <PriceWrap>
+                    <PricePercent>{el.percentSale}%</PricePercent>
+                    <Price>{el.price}원</Price>
+                  </PriceWrap>
+                  <ReviwStarWrap>
+                    <BlueStarWrap>
+                      <BlueStar />
+                      {el.star}
+                    </BlueStarWrap>
+                    <Review>리뷰{el.review}</Review>
+                  </ReviwStarWrap>
+                  {el.specialPrice === true ? <SpecialPrice /> : null}
+                  {el.freeDilivery === true ? <FreeDelivery /> : null}
+                </ContentWrap>
+              </Link>
             </BoxEl>
           ))}
       </BoxWrap>
