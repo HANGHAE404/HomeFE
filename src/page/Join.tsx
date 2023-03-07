@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useNavigate, Navigate } from 'react-router-dom'
 
 function Join() {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState<{
     email: string
     password: string
@@ -44,19 +45,17 @@ function Join() {
         confirm,
         nickname,
       }
-      console.log(data)
-      // const mock = new MockAdapter(axios)
-      // mock.onPost('api/signup').reply(200, {
-      //   data: {
-      //     success: true,
-      //   },
-      // })
-
-      const response = await axios.post(`/api/signup`, data)
-      if (response.data.success) {
-        alert('회원가입 성공!')
-        Navigate('/')
-      }
+      const response = await axios
+        .post(`http://15.165.18.86:3000/api/signup`, data)
+        .then((res) => {
+          console.log(res)
+          alert('회원가입완료')
+          navigate('/login')
+        })
+        .catch((error) => {
+          console.log(error)
+          alert('다시시도해주시기 바랍니다.')
+        })
     } catch (error) {
       console.log(error)
     }

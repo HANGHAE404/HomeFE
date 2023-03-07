@@ -23,7 +23,7 @@ function Home() {
         <BoxItem data={todayDealData} text={'오늘의딜'} />
         <CategorySlide data={CategorySlideData} />
         <BoxItem data={PopProductsData} text={'인기상품'} />
-        <Cart data={null}></Cart>
+        <Cart />
       </Wrapper>
     </div>
   )

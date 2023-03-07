@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-
+import jwt_decode from 'jwt-decode'
+import { setCookie } from '../util/cookie'
 type FormDataType = {
   email: string
   password: string
@@ -28,11 +29,23 @@ function Login() {
         email,
         password,
       }
-      const response = await axios.post(`/api/login`, data)
-      if (response.data.success) {
-        alert('로그인 성공!!')
-        navigate('/')
-      }
+      console.log('data : ', data)
+      const response = await axios
+        .post(`http://15.165.18.86:3000/api/login`, data)
+        .then((res) => {
+          console.log(res)
+          let token = res.data.token
+          setCookie('accessToken', token) // 쿠키에저장
+          const decodedUserInfo = jwt_decode(token)
+          console.log('decode', decodedUserInfo)
+          localStorage.setItem('userInfo', JSON.stringify(decodedUserInfo))
+          alert('로그인완료')
+          navigate('/')
+        })
+        .catch((error) => {
+          console.log(error)
+          alert('다시시도해주시기 바랍니다.')
+        })
     } catch (error) {
       console.log(error)
     }
@@ -47,16 +60,16 @@ function Login() {
           <input
             type="text"
             name="email"
-            value="{formData.email}"
+            value={formData.email}
             onChange={handleInputChange}
           ></input>
         </StInputEmail>
         <StInputPw>
           <h1>비밀번호</h1>
           <input
-            type="text"
+            type="password"
             name="password"
-            value="{formData.password}"
+            value={formData.password}
             onChange={handleInputChange}
           ></input>
         </StInputPw>

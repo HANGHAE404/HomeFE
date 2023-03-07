@@ -31,7 +31,7 @@ function DetailPage() {
 
   const mutation = useMutation(addTodos, {
     onSuccess: () => {
-      queryClient.invalidateQueries('cart')
+      queryClient.invalidateQueries('cart', { refetchInactive: true })
     },
   })
 
@@ -127,7 +127,12 @@ function DetailPage() {
   const PurChaseHandler = () => {
     alert('PurChaseHandler')
   }
-
+  axios.get(``)
+  useEffect(() => {
+    axios.get(`http://15.165.18.86:3000/api/goods/${params}`).then((res) => {
+      console.log('res :', res)
+    })
+  }, [])
   return (
     <DetailWrapper>
       <TopContentWrap>
