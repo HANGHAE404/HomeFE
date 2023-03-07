@@ -3,10 +3,14 @@ import styled from 'styled-components'
 import useDetectClose from '../hook/useDetectClose'
 
 interface Itodolist {
-  optionData: string[]
+  optionData: any
+  placeholder: any
 }
-const SelectBoxs = ({ optionData }: Itodolist): React.ReactElement => {
-  const [currentValue, setCurrentValue] = useState(optionData[0])
+const SelectBoxs = ({
+  optionData,
+  placeholder,
+}: Itodolist): React.ReactElement => {
+  const [currentValue, setCurrentValue] = useState(null)
 
   const dropDownRef = useRef()
   const [isOpen, setIsOpen] = useDetectClose(dropDownRef, false) //커스텀훅
@@ -15,16 +19,15 @@ const SelectBoxs = ({ optionData }: Itodolist): React.ReactElement => {
     const { innerText } = e.target
     setCurrentValue(innerText)
   }
-
   return (
     <SelectBox
       ref={dropDownRef}
       onClick={() => setIsOpen((prev: any) => !prev)}
     >
-      <Label>{currentValue}</Label>
+      <Label>{currentValue === null ? placeholder : currentValue}</Label>
       {isOpen && (
         <SelectOptions>
-          {optionData.map((data: any, index) => (
+          {optionData[0].map((data: any, index: any) => (
             <Option
               key={index}
               value={data.value}
@@ -66,7 +69,7 @@ const SelectBox = styled.div<{ ref: any }>`
 const Label = styled.label`
   font-size: 14px;
   margin-left: 4px;
-  text-align: center;
+  text-align: left;
 `
 const SelectOptions = styled.ul<{ ref?: any }>`
   z-index: 1;

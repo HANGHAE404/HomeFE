@@ -7,7 +7,7 @@ const useDetectClose = (ref: any, initialState: any) => {
     const pageClickEvent = (e: any) => {
       if (ref.current && !ref.current.contains(e.target)) {
         setIsOpen(!isOpen)
-        console.log('해당')
+        // console.log('밖에클릭')
       }
     }
 

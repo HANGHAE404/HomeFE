@@ -10,11 +10,21 @@ import Cart from '../asset/Cart'
 import NewIcon from '../asset/NewIcon'
 import Ranking from '../components/Ranking'
 import Rankingtwo from '../components/Rankingtwo'
-
+import { useSelector } from 'react-redux'
+import { useQuery } from 'react-query'
+import { getTodos } from '../axios/cart'
 const TopNav = ({ children, user }: any) => {
   const userInfo = getUser()
   const { pathname } = useLocation()
   const navigate = useNavigate()
+  const { isLoading, isError, data } = useQuery('todos', getTodos)
+
+  const crud = useSelector((state: any) => {
+    return state.cart.cart
+  }) //state는 중앙데이터 전체
+
+  console.log('crud.length : ', crud.length)
+
   const logoutHandler = () => {
     if (window.confirm('로그아웃 하시겠습니까?')) {
       removeUser()
@@ -28,19 +38,7 @@ const TopNav = ({ children, user }: any) => {
   return (
     <div>
       <Nav>
-        {userInfo ? (
-          <InNavWrap>
-            <div>
-              <Link to="/">
-                <Logo />
-              </Link>
-            </div>
-            <InNav>
-              <B>Hello ! {userInfo.sub}</B> 😃
-              <Button onClick={logoutHandler}>Logout</Button>
-            </InNav>
-          </InNavWrap>
-        ) : (
+        {userInfo ? null : ( // </InNavWrap> //   </InNav> //     <Button onClick={logoutHandler}>Logout</Button> //     <B>Hello ! {userInfo.sub}</B> 😃 //   <InNav> //   </div> //     </Link> //       <Logo /> //     <Link to="/"> //   <div> // <InNavWrap>
           <>
             <InNavWrap>
               <div>
@@ -60,8 +58,9 @@ const TopNav = ({ children, user }: any) => {
                 <Input type="text" placeholder="쇼핑검색" />
               </div>
               <div>
-                <BoxWapper>
-                  <Cart />
+                <BoxWapper onClick={() => navigate('/cart')}>
+                  <Cart></Cart>
+                  <CartLength>{data && data.length}</CartLength>
                 </BoxWapper>
               </div>
               <InNav>
@@ -108,6 +107,20 @@ const TopNav = ({ children, user }: any) => {
     </div>
   )
 }
+
+const CartLength = styled.div`
+  background-color: red;
+  color: white;
+  width: 17px;
+  height: 17px;
+  border-radius: 15px;
+  font-size: 13px;
+  position: absolute;
+  padding-top: 1px;
+  top: -6px;
+  padding-left: 5px;
+  left: 9px;
+`
 const Item = styled.li<{
   selected?: boolean
 }>`
@@ -132,6 +145,7 @@ const MenuUl = styled.ul`
   gap: 50px;
 `
 const BoxWapper = styled.div`
+  position: relative;
   width: 20px;
 `
 const BoxWapperAbs = styled(BoxWapper)`
@@ -162,6 +176,9 @@ const Ulwrappdiv = styled.div`
   padding: 0 60px;
   border-top: 1px solid #eaedef;
   border-bottom: 1px solid #eaedef;
+  @media screen and (max-width: 1200px) {
+    width: 100%;
+  }
   @media screen and (max-width: 900px) {
     display: none;
   }

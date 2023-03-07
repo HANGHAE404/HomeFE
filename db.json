@@ -1,0 +1,142 @@
+{
+  "cart": [
+    {
+      "postId": 1,
+      "userId": 1,
+      "name": "김영현",
+      "content": "[오늘의딜][10%쿠폰] 부드러운 카스테라 항균 옥수수솜 간절기/사계절 차렵이불세트 ",
+      "price": 35900,
+      "option": [
+        {
+          "색상": [
+            "간절기용_화이트(35,900원~86,900원)",
+            "간절기용_크림아이보리(35,900원~86,900원)",
+            "간절기용_핑크(35,900원~86,900원)"
+          ]
+        },
+        {
+          "구성및사이즈": [
+            "슈퍼싱글 이불베개세트(35900원)",
+            "퀸&킹겸용 이불베개세트(56,900원)",
+            "슈퍼싱글 풀세트(56,900원)",
+            "퀸&킹겸용 풀세트(76,900원)"
+          ]
+        },
+        {
+          "추가선택": [
+            "카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-화이트 (24,900원)",
+            "카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-크림아이보리 (24,900원)",
+            "카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-핑크 (24,900원)",
+            "카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-모카브라운 (24,900원)",
+            "카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-그레이 (24,900원)",
+            "카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-차콜 (24,900원)",
+            "카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-버터옐로우 (24,900원)",
+            "카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-블러썸 (24,900원)"
+          ]
+        }
+      ],
+      "fileUrl": [
+        {
+          "image": "https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/167168822852557476.jpg?gif=1&w=480&h=480&c=c&webp=1"
+        },
+        {
+          "image": "https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/165483857498060691.jpg?gif=1&w=850&h=850&c=c&webp=1"
+        },
+        {
+          "image": "https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/163954836096034921.jpg?gif=1&w=850&h=850&c=c&webp=1"
+        },
+        {
+          "image": "https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/167325400379240034.jpg?gif=1&w=480&h=480&c=c&webp=1"
+        },
+        {
+          "image": "https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162884149629538561.jpg?gif=1&w=480&h=480&c=c&webp=1"
+        },
+        {
+          "image": "https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/164396611926039690.jpg?gif=1&w=480&h=480&c=c&webp=1"
+        },
+        {
+          "image": "https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/166856262873508761.jpg?gif=1&w=480&h=480&c=c&webp=1"
+        },
+        {
+          "image": "https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/167325399665909385.jpg?gif=1&w=480&h=480&c=c&webp=1"
+        }
+      ],
+      "likeState": false,
+      "likesCount": 1,
+      "commentsCount": 0,
+      "createdAt": "2023-02-22T07:08:31.000Z",
+      "updatedAt": "2023-02-22T07:08:31.000Z",
+      "nickname": "테스트계정",
+      "id": 1
+    },
+    {
+      "postId": 1,
+      "userId": 1,
+      "name": "김영현",
+      "content": "[오늘의딜][10%쿠폰] 부드러운 카스테라 항균 옥수수솜 간절기/사계절 차렵이불세트 ",
+      "price": 35900,
+      "option": [
+        {
+          "색상": [
+            "간절기용_화이트(35,900원~86,900원)",
+            "간절기용_크림아이보리(35,900원~86,900원)",
+            "간절기용_핑크(35,900원~86,900원)"
+          ]
+        },
+        {
+          "구성및사이즈": [
+            "슈퍼싱글 이불베개세트(35900원)",
+            "퀸&킹겸용 이불베개세트(56,900원)",
+            "슈퍼싱글 풀세트(56,900원)",
+            "퀸&킹겸용 풀세트(76,900원)"
+          ]
+        },
+        {
+          "추가선택": [
+            "카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-화이트 (24,900원)",
+            "카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-크림아이보리 (24,900원)",
+            "카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-핑크 (24,900원)",
+            "카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-모카브라운 (24,900원)",
+            "카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-그레이 (24,900원)",
+            "카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-차콜 (24,900원)",
+            "카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-버터옐로우 (24,900원)",
+            "카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-블러썸 (24,900원)"
+          ]
+        }
+      ],
+      "fileUrl": [
+        {
+          "image": "https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/167168822852557476.jpg?gif=1&w=480&h=480&c=c&webp=1"
+        },
+        {
+          "image": "https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/165483857498060691.jpg?gif=1&w=850&h=850&c=c&webp=1"
+        },
+        {
+          "image": "https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/163954836096034921.jpg?gif=1&w=850&h=850&c=c&webp=1"
+        },
+        {
+          "image": "https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/167325400379240034.jpg?gif=1&w=480&h=480&c=c&webp=1"
+        },
+        {
+          "image": "https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162884149629538561.jpg?gif=1&w=480&h=480&c=c&webp=1"
+        },
+        {
+          "image": "https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/164396611926039690.jpg?gif=1&w=480&h=480&c=c&webp=1"
+        },
+        {
+          "image": "https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/166856262873508761.jpg?gif=1&w=480&h=480&c=c&webp=1"
+        },
+        {
+          "image": "https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/167325399665909385.jpg?gif=1&w=480&h=480&c=c&webp=1"
+        }
+      ],
+      "likeState": false,
+      "likesCount": 1,
+      "commentsCount": 0,
+      "createdAt": "2023-02-22T07:08:31.000Z",
+      "updatedAt": "2023-02-22T07:08:31.000Z",
+      "nickname": "테스트계정",
+      "id": 2
+    }
+  ]
+}

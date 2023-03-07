@@ -5,6 +5,10 @@ import styled from 'styled-components'
 import Carousel from 'nuka-carousel/lib/carousel'
 import SelectBoxs from '../components/SelectBoxs'
 import SpecialPrice from '../asset/SpecialPrice'
+import { cartCreate } from '../redux/modules/cart'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { addTodos, getTodos } from '../axios/cart'
+
 interface IProduct {
   postId: number
   userId: string
@@ -22,6 +26,17 @@ interface IProduct {
 }
 function DetailPage() {
   const [index, setIndex] = useState(1)
+  const queryClient = useQueryClient()
+
+  const mutation = useMutation(addTodos, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('cart')
+    },
+  })
+
+  const { isLoading, isError, data: dataSet } = useQuery('todos', getTodos)
+  console.log(dataSet)
+
   let data = {
     postId: 1,
     userId: 1,
@@ -30,9 +45,33 @@ function DetailPage() {
       '[오늘의딜][10%쿠폰] 부드러운 카스테라 항균 옥수수솜 간절기/사계절 차렵이불세트 ',
     price: 35900,
     option: [
-      ['옵션선택1-1', '옵션선택1-2', '옵션선택1-3'],
-      ['옵션선택2-1', '옵션선택2-2', '옵션선택2-3'],
-      ['옵션선택3-1', '옵션선택3-2', '옵션선택3-3'],
+      {
+        색상: [
+          '간절기용_화이트(35,900원~86,900원)',
+          '간절기용_크림아이보리(35,900원~86,900원)',
+          '간절기용_핑크(35,900원~86,900원)',
+        ],
+      },
+      {
+        구성및사이즈: [
+          '슈퍼싱글 이불베개세트(35900원)',
+          '퀸&킹겸용 이불베개세트(56,900원)',
+          '슈퍼싱글 풀세트(56,900원)',
+          '퀸&킹겸용 풀세트(76,900원)',
+        ],
+      },
+      {
+        추가선택: [
+          '카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-화이트 (24,900원)',
+          '카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-크림아이보리 (24,900원)',
+          '카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-핑크 (24,900원)',
+          '카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-모카브라운 (24,900원)',
+          '카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-그레이 (24,900원)',
+          '카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-차콜 (24,900원)',
+          '카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-버터옐로우 (24,900원)',
+          '카스테라 고정밴딩 침대패드 슈퍼싱글(SS)-블러썸 (24,900원)',
+        ],
+      },
     ],
     fileUrl: [
       {
@@ -77,19 +116,16 @@ function DetailPage() {
   }
   const [isData, setData] = useState<any>(data)
   const params = useParams()
-  //   useEffect(() => {
-  //     //   axios.get(`/api/goods/${params}`)
-  //     // setData(data)
-  //     console.log('isData : ', isData)
-  //   }, [])
-  console.log(data.option)
+
   const CartBtnHandler = () => {
-    alert('CartBtnHandler')
+    alert('장바구니에 담았습니다.')
+    mutation.mutate(data) //react-query
   }
 
   const PurChaseHandler = () => {
     alert('PurChaseHandler')
   }
+
   return (
     <DetailWrapper>
       <TopContentWrap>
@@ -143,9 +179,17 @@ function DetailPage() {
               <SpecialPrice />
             </RightPriceWrap>
           </div>
-          {data.option.map((el: any, idx) => (
-            <SelectBoxs optionData={el}></SelectBoxs>
-          ))}
+          <div>
+            {data.option.map((el: any, idx) => {
+              return (
+                <SelectBoxs
+                  placeholder={Object.keys(el)}
+                  optionData={Object.values(el)}
+                  key={idx}
+                ></SelectBoxs>
+              )
+            })}
+          </div>
           <BtnWrap>
             <CartBtn onClick={CartBtnHandler}>장바구니</CartBtn>
             <PurchaseBtn onClick={PurChaseHandler}>구매하기</PurchaseBtn>
@@ -214,6 +258,9 @@ const TapCarousel = styled.div`
   flex-wrap: wrap;
 `
 const TopLeftContents = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
   width: 50%;
   margin-right: 15px;
   margin-left: 30px;
@@ -232,6 +279,6 @@ const DetailWrapper = styled.div`
 `
 const TopContentWrap = styled.div`
   display: flex;
-  margin-top: 30px;
+  margin-top: 50px;
 `
 export default DetailPage

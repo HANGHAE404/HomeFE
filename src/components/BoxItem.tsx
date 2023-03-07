@@ -17,6 +17,7 @@ interface Idata {
   title: string
   contents: string
   percentSale: number
+  category?: string
 }
 interface IobjData {
   data: Idata[]
