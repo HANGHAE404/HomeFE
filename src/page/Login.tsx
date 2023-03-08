@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import jwt_decode from 'jwt-decode'
 import { setCookie } from '../util/cookie'
+
 type FormDataType = {
   email: string
   password: string
@@ -29,6 +30,7 @@ function Login() {
         email,
         password,
       }
+
       const response = await axios
         .post(`http://15.165.18.86:3000/api/login`, data)
         .then((res) => {
@@ -64,7 +66,6 @@ function Login() {
           ></StInput>
         </StInputEmail>
         <StInputPw>
-          <h1>비밀번호</h1>
           <StInput
             type="password"
             name="password"
