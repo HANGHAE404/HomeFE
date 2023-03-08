@@ -52,12 +52,14 @@ const TopNav = ({ children, user }: any) => {
             <Input type="text" placeholder="쇼핑검색" />
           </div>
           <InNav>
-            <BoxWapper onClick={() => navigate('/cart')}>
-              <Cart></Cart>
-              <CartLength>{!isLoading && data ? data.length : 0}</CartLength>
-            </BoxWapper>
             {userInfo ? (
               <>
+                <BoxWapper onClick={() => navigate('/cart')}>
+                  <Cart></Cart>
+                  <CartLength>
+                    {!isLoading && data ? data.length : 0}
+                  </CartLength>
+                </BoxWapper>
                 <B> {userInfo.sub}</B>
                 {userInfo.userId}
                 <Button onClick={logoutHandler}>로그아웃</Button>

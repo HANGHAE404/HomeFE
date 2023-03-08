@@ -65,11 +65,9 @@ function Login() {
           ></StInput>
         </StInputEmail>
         <StInputPw>
-
           <h1>비밀번호</h1>
-          <input
+          <StInput
             type="password"
-
             name="password"
             value={formData.password}
             onChange={handleInputChange}
