@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import jwt_decode from 'jwt-decode'
+import { setCookie } from '../util/cookie'
 
 type FormDataType = {
   email: string
@@ -28,6 +30,7 @@ function Login() {
         email,
         password,
       }
+
       const response = await axios.post(`/api/login`, data)
       if (response.data.success) {
         alert('로그인 성공!!')
