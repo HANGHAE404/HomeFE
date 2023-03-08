@@ -2,7 +2,6 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
 
-
 interface Idata {
   id: number
   src: string
@@ -23,13 +22,15 @@ interface ICartProps {
   data: Idata[] | null
 }
 
+// const data = useSelector((state: any) => {
+//   return state
+// }) //state는 중앙데이터 전체
 
-
-const data = useSelector()
-data.map(()=>{
-  {id:1,category:'침대',prcie:''} => 
-})
-// 갯수 셀렉트 클릭시 가격변동 
+// const data = useSelector(state: any)
+// data.map(()=>{
+//   {id:1,category:'침대',prcie:''} =>
+// })
+// 갯수 셀렉트 클릭시 가격변동
 function Cart({ data }: ICartProps) {
   const dataFake = [
     {
@@ -52,29 +53,31 @@ function Cart({ data }: ICartProps) {
     // },
   ]
 
-  const cartData =
-    data === null ? (
-      <>
-        <img src={`${dataFake[0].src}`} />
-      </>
-    ) : (
-      data
-    )
+  const cartData: any[] = data || dataFake
+
+  // const cartData =
+  //   data === null ? (
+  //     <>
+  //       <img src={`${dataFake[0].src}`} />
+  //     </>
+  //   ) : (
+  //     data
+  //   )
 
   // console.log(data)
 
-  if (!cartData.length) {
-    return (
-      <img
-        src="https://image.ohou.se/i/bucketplace-v2-development/uploads/assets/163703569663018673.png"
-        alt="이미지 없음"
-      />
-    )
-  }
+  // if (!cartData.length) {
+  //   return (
+  //     <img
+  //       src="https://image.ohou.se/i/bucketplace-v2-development/uploads/assets/163703569663018673.png"
+  //       alt="이미지 없음"
+  //     />
+  //   )
+  // }
   console.log(data)
   return (
     <div>
-      {cartData.map((el: any) => (
+      {cartData.map((el: Idata) => (
         <img src={el.src} alt={el.title} key={el.id} />
       ))}
     </div>
