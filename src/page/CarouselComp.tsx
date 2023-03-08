@@ -107,14 +107,9 @@ function CarouselComp() {
           </div>
         ))}
       </Carousel>
-      <PageNum>
-        {/* {Data.map((pd: { id: number; src: string }, idx) => (
-          <div key={idx} onClick={() => setIndex(idx)}>
-            {index}
-          </div>
-        ))} */}
+      {/* <PageNum>
         {index}/{Data.length}
-      </PageNum>
+      </PageNum> */}
     </Wrapper>
   )
 }

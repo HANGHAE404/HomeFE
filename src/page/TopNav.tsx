@@ -35,7 +35,7 @@ const TopNav = ({ children, user }: any) => {
     <div>
       <Nav>
         <InNavWrap>
-          <div>
+          <div style={{ cursor: 'pointer' }}>
             <Link to="/">
               <Logo />
             </Link>

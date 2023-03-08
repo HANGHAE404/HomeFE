@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import Carousel from 'nuka-carousel/lib/carousel'
@@ -9,6 +9,7 @@ import { cartCreate } from '../redux/modules/cart'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { addTodos, getTodos } from '../axios/cart'
 import { getUser } from '../util/localstorage'
+import { useDispatch } from 'react-redux'
 
 interface IProduct {
   postId: number
@@ -28,12 +29,6 @@ interface IProduct {
 function DetailPage() {
   const [index, setIndex] = useState(1)
   const queryClient = useQueryClient()
-
-  const mutation = useMutation(addTodos, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('cart', { refetchInactive: true })
-    },
-  })
 
   const { isLoading, isError, data: dataSet } = useQuery('todos', getTodos)
   const userInfo = getUser()
@@ -117,12 +112,31 @@ function DetailPage() {
   const [isData, setData] = useState<any>(data)
   const params = useParams()
 
-  const CartBtnHandler = () => {
-    if (!userInfo) {
-    }
-    alert('장바구니에 담았습니다.')
-    mutation.mutate(data) //react-query
-  }
+  // const CartBtnHandler = () => {
+  //   if (!userInfo) {
+  //     alert('비회원입니다.')
+  //     return
+  //   } else {
+  //     alert('장바구니에 담았습니다.')
+  //     mutation.mutate(data)
+  //   }
+  // }
+  // const mutation = useMutation(addTodos, {
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries('cart', { refetchInactive: true })
+  //   },
+  // })
+  const dispatch = useDispatch()
+
+  const mutation = useMutation(addTodos)
+  const CartBtnHandler = useCallback(
+    async (newTodo: any) => {
+      await mutation.mutateAsync(newTodo)
+      dispatch(cartCreate(newTodo))
+      alert('장바구니에 담았습니다.')
+    },
+    [mutation]
+  )
 
   const PurChaseHandler = () => {
     alert('PurChaseHandler')
@@ -198,7 +212,13 @@ function DetailPage() {
             })}
           </div>
           <BtnWrap>
-            <CartBtn onClick={CartBtnHandler}>장바구니</CartBtn>
+            <CartBtn
+              onClick={() => {
+                CartBtnHandler(data)
+              }}
+            >
+              장바구니
+            </CartBtn>
             <PurchaseBtn onClick={PurChaseHandler}>구매하기</PurchaseBtn>
           </BtnWrap>
         </TopRightContents>
@@ -220,6 +240,7 @@ const PurchaseBtn = styled.button`
   border: 1px solid #09addb;
   border-radius: 5px;
   width: 50%;
+  cursor: pointer;
 `
 const CartBtn = styled.button`
   width: 50%;
@@ -231,6 +252,7 @@ const CartBtn = styled.button`
   padding: 13px 10px 14px;
   font-size: 17px;
   line-height: 26px;
+  cursor: pointer;
 `
 const RightPriceWrap = styled.div`
   line-height: 1;
