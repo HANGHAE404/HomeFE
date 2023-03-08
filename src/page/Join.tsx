@@ -57,10 +57,33 @@ function Join() {
           console.log(error)
           alert('다시시도해주시기 바랍니다.')
         })
-
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    return emailRegex.test(email)
+  }
+
+  const validatePassword = (password: string) => {
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
+    return passwordRegex.test(password)
+  }
+
+  const handleFormSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault()
+    const { email, password } = formData
+    if (!validateEmail(email)) {
+      alert('이메일 형식에 맞춰서 입력바랍니다.')
+      return
+    }
+    if (!validatePassword(password)) {
+      alert('비밀번호는 8자리 이상 영문, 숫자 조합입니다.')
+      return
+    }
+    HandleJoin()
   }
 
   return (

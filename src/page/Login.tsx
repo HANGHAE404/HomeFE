@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import jwt_decode from 'jwt-decode'
-import { setCookie } from '../util/cookie'
+
 type FormDataType = {
   email: string
   password: string
@@ -29,23 +28,11 @@ function Login() {
         email,
         password,
       }
-      console.log('data : ', data)
-      const response = await axios
-        .post(`http://15.165.18.86:3000/api/login`, data)
-        .then((res) => {
-          console.log(res)
-          let token = res.data.token
-          setCookie('accessToken', token) // 쿠키에저장
-          const decodedUserInfo = jwt_decode(token)
-          console.log('decode', decodedUserInfo)
-          localStorage.setItem('userInfo', JSON.stringify(decodedUserInfo))
-          alert('로그인완료')
-          navigate('/')
-        })
-        .catch((error) => {
-          console.log(error)
-          alert('다시시도해주시기 바랍니다.')
-        })
+      const response = await axios.post(`/api/login`, data)
+      if (response.data.success) {
+        alert('로그인 성공!!')
+        navigate('/')
+      }
     } catch (error) {
       console.log(error)
     }
@@ -65,11 +52,8 @@ function Login() {
           ></StInput>
         </StInputEmail>
         <StInputPw>
-
-          <h1>비밀번호</h1>
-          <input
-            type="password"
-
+          <StInput
+            type="text"
             name="password"
             value={formData.password}
             onChange={handleInputChange}
