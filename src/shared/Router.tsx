@@ -9,6 +9,7 @@ import Category from '../page/Category'
 import Best from '../page/Best'
 import Todaydeal from '../page/Todaydeal'
 import Cart from '../page/Cart'
+import Create from '../page/CreateForm'
 
 const Router = () => {
   const userInfo = getUser()
@@ -21,6 +22,7 @@ const Router = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/DetailPage/:id" element={<DetailPage />} />
+          <Route path="/create" element={<Create />} />
           {/* 아래는 후순위 스코프초과  */}
           <Route path="/category" element={<Category />} />
           <Route path="/best" element={<Best />} />

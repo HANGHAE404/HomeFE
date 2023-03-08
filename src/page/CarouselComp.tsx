@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Carousel from 'nuka-carousel/lib/carousel'
 import styled from 'styled-components'
+import { debounce } from 'lodash'
 function CarouselComp() {
-  const [index, setIndex] = useState(1)
   const Data = [
     {
       id: 1,
@@ -25,16 +25,17 @@ function CarouselComp() {
       src: 'https://image.ohou.se/i/bucketplace-v2-development/uploads/store/banners/store_home_banners/167757531484370577.png?w=2560 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/store/banners/store_home_banners/167757531484370577.png?w=2560 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/store/banners/store_home_banners/167757531484370577.png?w=2560 3x',
     },
   ]
-
+  const [isIndex, setIndex] = useState(0)
   return (
     <Wrapper>
       <Carousel
-        slideIndex={index}
+        // slideIndex={isIndex}
+        afterSlide={(index: number) => setIndex(index)}
+        beforeSlide={(index: number) => setIndex(index)}
         renderCenterLeftControls={({ previousSlide }) => (
           <SlideButton
             onClick={() => {
               previousSlide()
-              setIndex(index % 5)
             }}
             style={{
               width: '48px',
@@ -65,7 +66,6 @@ function CarouselComp() {
           <SlideButton
             onClick={() => {
               nextSlide()
-              setIndex(index + 1)
             }}
             style={{
               width: '48px',
@@ -107,9 +107,9 @@ function CarouselComp() {
           </div>
         ))}
       </Carousel>
-      {/* <PageNum>
-        {index}/{Data.length}
-      </PageNum> */}
+      <PageNum>
+        {isIndex + 1}/{Data.length}
+      </PageNum>
     </Wrapper>
   )
 }
