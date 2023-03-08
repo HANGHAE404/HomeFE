@@ -137,10 +137,7 @@ const Item = styled.li<{
 
 const Nav = styled.div`
   background-color: white;
-  /* padding: 0px 60px; */
-
   font-family: 'LINESeedKR-Bd';
-  filter: drop-shadow(2px 4px 6px black);
 `
 const MenuUl = styled.ul`
   display: flex;

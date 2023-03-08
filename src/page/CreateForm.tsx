@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { getCookie } from '../util/cookie'
 import styled from 'styled-components'
 import { title } from 'process'
+import { getUser } from '../util/localstorage'
 
 function CreateForm() {
   const navigate = useNavigate()
@@ -14,13 +15,14 @@ function CreateForm() {
   const [previewImg, setPreviewImg] = useState('')
   const [data, setData] = useState({
     title: '',
-    mbti: '',
-    material: '',
     content: '',
+    price: '',
+    option: '',
+    freeDilivery: '',
+    specialPrice: '',
+    percentSale: '',
   })
-  const [titleInputCount, setTitleInputCount] = useState(0)
-  const [contentInputCount, setContentInputCount] = useState(0)
-
+  const userInfo = getUser()
   const onClickHandler = async (e: any) => {
     e.preventDefault()
     if (image.length === 0) return alert('이미지를 넣어주세요.')
@@ -29,86 +31,101 @@ function CreateForm() {
     } else if (data.title.length > 20) {
       return alert('글자 수 초과!')
     }
-    if (data.mbti.trim() === '') return alert('MBTI를 선택해주세요.')
-    if (data.material.trim() === '') return alert('재료를 선택해주세요.')
-    if (data.content.trim() === '') {
-      return alert('레시피를 입력해주세요.')
-    } else if (data.title.length > 255) {
-      return alert('글자 수 초과!')
-    }
 
     const formData = new FormData()
-    // formData에 이미지 append
     for (let i = 0; i < image.length; i++) {
       formData.append('image', image[i])
     }
+
     // formData에 객체를 JSON문법에 맞게 변형
-    const { title, mbti, material, content } = data
-    const body = JSON.stringify({ title, mbti, material, content })
-    formData.append('data', new Blob([body], { type: 'application/json' }))
+    const {
+      title,
+      content,
+      price,
+      freeDilivery,
+      specialPrice,
+      percentSale,
+      option,
+    } = data
+    const body = JSON.stringify({
+      userId: userInfo.userId,
+      title,
+      content,
+      price,
+      option,
+      freeDilivery,
+      specialPrice,
+      percentSale,
+    })
+    console.log('body :', body)
+    const blob = new Blob([body], { type: 'application/json' })
+    console.log('blob :  ', blob)
 
-    for (let i of formData.entries()) console.log('key', i)
-
+    formData.append('title', title)
+    formData.append('content', content)
+    formData.append('price', price)
+    formData.append('freeDilivery', freeDilivery)
+    formData.append('specialPrice', specialPrice)
+    formData.append('percentSale', percentSale)
+    formData.append('option', option)
+    console.log('formData : ', formData)
+    // for (let i of formData.entries()) console.log('key', i)
+    for (var entries of formData.keys()) console.log(entries)
     // axios 활용 서버에 전송 하기
+
+    // userId,
+    // title,
+    // content,
+    // price,
+    // option,
+    // freeDilivery,
+    // specialPrice,
+    // percentSale,
+    // image
     const res = await axios({
       method: 'POST',
-      url: 'http://3.36.29.101/api/recipe',
+      url: `http://15.165.18.86:3000/api/goods`,
       data: formData,
       headers: {
-        Authorization: token,
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'multipart/form-data',
       },
     })
       .then((res) => {
         console.log(res)
         alert('작성완료')
-        navigate('/mainpage')
+        navigate('/')
       })
       .catch((error) => {
         console.log(error)
         alert(error.response.data.message)
       })
 
-    console.log('target :', res)
-
     // 데이터 내용 초기화
-    setImage([])
-    setData({
-      title: '',
-      mbti: '',
-      material: '',
-      content: '',
-    })
-    setPreviewImg('')
+    // setImage([])
+    // setData({
+    //   userId: '',
+    //   title: '',
+    //   content: '',
+    //   price: '',
+    //   option: '',
+    //   freeDilivery: '',
+    //   specialPrice: '',
+    //   percentSale: '',
+    //   image: '',
+    // })
+    // setPreviewImg('')
   }
-  // title 핸들러
-  const titleHandler = (e: any) => {
+  const onChangeHandler = (e: any) => {
     const { name, value } = e.target
     setData({ ...data, [name]: value })
-    setTitleInputCount(e.target.value.length)
-  }
-  // selectOption 핸들러
-  const selectHandler = (e: any) => {
-    const { name, value } = e.target
-    setData({ ...data, [name]: value })
-  }
-  // ContentTextarea 컨텐츠 확장기능(줄 수를 계산해서 저장할 변수)
-  const [textareaHeight, setTextareaHeight] = useState(0)
-  // content 핸들러
-  const contentHandler = (e: any) => {
-    const { name, value } = e.target
-    setData({ ...data, [name]: value })
-    // content input 글자수 표기
-    setContentInputCount(e.target.value.length)
-    // 엔터('\n') 개수를 세서 textareaHeight에 저장
-    setTextareaHeight(e.target.value.split('\n').length - 1)
   }
   // 이미지 업로드 및 미리보기
   const imgHandler = async (e: any) => {
     const {
       target: { files },
     } = e
-    console.log(files[0])
+    // console.log('files : ', files)
     // 파일이 없을때 체크
     if (!files[0]) return
 
@@ -140,7 +157,7 @@ function CreateForm() {
   }
 
   useEffect(() => {
-    // 컴포넌트가 언마운트되면 createObjectURL()을 통해 생성한 기존 URL을 폐기
+    //클린업
     return () => {
       URL.revokeObjectURL(previewImg)
     }
@@ -161,75 +178,52 @@ function CreateForm() {
           />
         </ImgForm>
         <CreateFormWrapIn>
-          <TitleForm>
-            <InputBox
-              type="text"
-              name="title"
-              onChange={titleHandler}
-              maxLength={20}
-              placeholder="제목을 적어주세요!"
-            />
-            <p>
-              <span>{titleInputCount}</span>
-              <span>/20 자</span>
-            </p>
-          </TitleForm>
-          <MbtiForm>
-            <SelectBox name="mbti" onChange={selectHandler}>
-              <option value="" hidden>
-                MBTI를 골라주세요!
-              </option>
-              <option value="ISTJ">ISTJ</option>
-              <option value="ISTP">ISTP</option>
-              <option value="INFJ">INFJ</option>
-              <option value="INTJ">INTJ</option>
-              <option value="ISFJ">ISFJ</option>
-              <option value="ISFP">ISFP</option>
-              <option value="INFP">INFP</option>
-              <option value="INTP">INTP</option>
-              <option value="ESTJ">ESTJ</option>
-              <option value="ESFP">ESFP</option>
-              <option value="ENFP">ENFP</option>
-              <option value="ENTP">ENTP</option>
-              <option value="ESFJ">ESFJ</option>
-              <option value="ESTP">ESTP</option>
-              <option value="ENFJ">ENFJ</option>
-              <option value="ENTJ">ENTJ</option>
-            </SelectBox>
-          </MbtiForm>
-          <MaterialForm>
-            <SelectBox name="material" onChange={selectHandler}>
-              <option value="" hidden>
-                주 재료를골라주세요!
-              </option>
-              <option value="사케">사케</option>
-              <option value="맥주">맥주</option>
-              <option value="탁주">탁주</option>
-              <option value="와인">와인</option>
-              <option value="증류주">증류주</option>
-              <option value="막걸리">막걸리</option>
-              <option value="위스키">위스키</option>
-              <option value="브랜디">브랜디</option>
-              <option value="샴페인">샴페인</option>
-              <option value="칵테일">칵테일</option>
-              <option value="전통주">전통주</option>
-              <option value="기타">기타</option>
-            </SelectBox>
-          </MaterialForm>
-        </CreateFormWrapIn>
-        <ContentForm>
-          <ContentTextarea
-            name="content"
-            placeholder="당신의 레시피를 적어주세요!"
-            onChange={contentHandler}
-            maxLength={255}
-            style={{ height: (textareaHeight + 2) * 18 + 'px' }}
+          <input
+            type="text"
+            name="title"
+            onChange={onChangeHandler}
+            maxLength={20}
+            placeholder="title"
           />
-          <p>
-            <span>{contentInputCount}</span>
-            <span>/255 자</span>
-          </p>
-        </ContentForm>
+
+          <input
+            type="text"
+            name="content"
+            onChange={onChangeHandler}
+            placeholder="content"
+          />
+          <input
+            type="text"
+            name="price"
+            onChange={onChangeHandler}
+            placeholder="price"
+          />
+          <input
+            type="text"
+            name="freeDilivery"
+            onChange={onChangeHandler}
+            placeholder="freeDilivery"
+          />
+          <input
+            type="text"
+            name="specialPrice"
+            onChange={onChangeHandler}
+            placeholder="specialPrice"
+          />
+          <input
+            type="text"
+            name="percentSale"
+            onChange={onChangeHandler}
+            placeholder="percentSale"
+          />
+          <input
+            type="text"
+            name="option"
+            onChange={onChangeHandler}
+            placeholder="option"
+          />
+        </CreateFormWrapIn>
+
         <SaveButtonContainer>
           <Button bgColor="#000" border="3px solid #fff" color="white">
             저장
@@ -238,7 +232,7 @@ function CreateForm() {
             bgColor="#fff"
             border="3px solid black"
             onClick={() => {
-              navigate('/mainpage')
+              navigate('/')
             }}
           >
             취소
@@ -298,21 +292,6 @@ const TitleForm = styled.div`
     text-align: right;
   }
 `
-const MbtiForm = styled.div`
-  overflow: hidden;
-  margin-bottom: 57px;
-  line-height: 36px;
-  word-break: break-all;
-  margin: 20px 0px;
-`
-const MaterialForm = styled.div`
-  overflow: hidden;
-  margin-bottom: 57px;
-  line-height: 36px;
-  word-break: break-all;
-  margin: 20px 0px;
-`
-
 const InputBox = styled.input`
   width: 100%;
   border: none;
