@@ -9,6 +9,7 @@ const addTodos = async (newCart: any) => {
 const getTodos = async () => {
   console.log(process.env)
   const res = await api.get(`/cart`)
+
   return res.data
 }
 
