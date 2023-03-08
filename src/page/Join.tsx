@@ -1,18 +1,19 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
-
 import { useNavigate, Navigate } from 'react-router-dom'
 
 function Join() {
   const navigate = useNavigate()
   const [formData, setFormData] = useState<{
-    email: string
+    Id: string
+    emailProvider: string
     password: string
     confirm: string
     nickname: string
   }>({
-    email: '',
+    Id: '',
+    emailProvider: 'gmail.com',
     password: '',
     confirm: '',
     nickname: '',
@@ -23,13 +24,22 @@ function Join() {
     setFormData((prevState) => ({ ...prevState, [name]: value }))
   }
 
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target
+    setFormData((prevState) => ({ ...prevState, [name]: value }))
+  }
+  // console.log(handleSelectChange)
   const selectbox = () => {
     return (
-      <StSelect>
-        <option value="gmail">gmail.com</option>
-        <option value="naver">naver.com</option>
-        <option value="kakao">kakao.com</option>
-        <option value="outlook">outlook.com</option>
+      <StSelect
+        name="emailProvider"
+        value={formData.emailProvider}
+        onChange={handleSelectChange}
+      >
+        <option value="gmail.com">gmail.com</option>
+        <option value="naver.com">naver.com</option>
+        <option value="kakao.com">kakao.com</option>
+        <option value="outlook.com">outlook.com</option>
       </StSelect>
     )
   }
@@ -38,14 +48,15 @@ function Join() {
 
   const HandleJoin = async () => {
     try {
-      const { email, password, confirm, nickname } = formData
+      const { Id, emailProvider, password, confirm, nickname } = formData
+      const email = `${Id}@${emailProvider}`
       const data = {
         email,
         password,
         confirm,
         nickname,
       }
-
+      console.log(data)
       const response = await axios
         .post(`http://15.165.18.86:3000/api/signup`, data)
         .then((res) => {
@@ -62,9 +73,9 @@ function Join() {
     }
   }
 
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-    return emailRegex.test(email)
+  const validateEmail = (Id: string, emailProvider: string) => {
+    const emailRegex = /^[a-z0-9]{4,10}$/
+    return emailRegex.test(Id) && emailProvider !== ''
   }
 
   const validatePassword = (password: string) => {
@@ -74,8 +85,8 @@ function Join() {
 
   const handleFormSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault()
-    const { email, password } = formData
-    if (!validateEmail(email)) {
+    const { Id, emailProvider, password } = formData
+    if (!validateEmail(Id, emailProvider)) {
       alert('이메일 형식에 맞춰서 입력바랍니다.')
       return
     }
@@ -93,8 +104,8 @@ function Join() {
         <StP>이메일</StP>
         <StInput
           type="text"
-          name="email"
-          value={formData.email}
+          name="Id"
+          value={formData.Id}
           onChange={handleInputChange}
         ></StInput>
         @{selectbox()}
@@ -106,16 +117,17 @@ function Join() {
           영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.
         </StpOther>
         <StInput2
-          type="text"
+          type="password"
           name="password"
           value={formData.password}
           onChange={handleInputChange}
         ></StInput2>
       </StInputPw>
+
       <StConfirmPw>
         <h1>비밀번호 확인</h1>
         <StInput2
-          type="text"
+          type="password"
           name="confirm"
           value={formData.confirm}
           onChange={handleInputChange}

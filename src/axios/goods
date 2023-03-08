@@ -1,0 +1,10 @@
+// axios요청들어가는 모든 모듈
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import axios from 'axios'
+import api from './api'
+const getGoods = async (grounp, click) => {
+  await api.post(`/api/goods/?group=${grounp}&click=${click}`)
+}
+// /api/goods/?group=${5}&click=${0})
+export { getGoods }
