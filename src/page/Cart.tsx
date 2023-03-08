@@ -22,16 +22,11 @@ interface ICartProps {
   data: Idata[] | null
 }
 
-// const data = useSelector((state: any) => {
-//   return state
-// }) //state는 중앙데이터 전체
 
-// const data = useSelector(state: any)
-// data.map(()=>{
-//   {id:1,category:'침대',prcie:''} =>
-// })
+// data && data.map((el: any) => {})
 // 갯수 셀렉트 클릭시 가격변동
-function Cart({ data }: ICartProps) {
+function Cart() {
+
   const dataFake = [
     {
       id: 0,
@@ -53,7 +48,6 @@ function Cart({ data }: ICartProps) {
     // },
   ]
 
-  const cartData: any[] = data || dataFake
 
   // const cartData =
   //   data === null ? (
@@ -74,12 +68,15 @@ function Cart({ data }: ICartProps) {
   //     />
   //   )
   // }
-  console.log(data)
+
+  // console.log(data)
   return (
     <div>
-      {cartData.map((el: Idata) => (
+      {/* {cartData.map((el: any) => (
+
         <img src={el.src} alt={el.title} key={el.id} />
-      ))}
+      ))} */}
+      Cartpage
     </div>
   )
 }

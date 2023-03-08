@@ -10,21 +10,17 @@ import Cart from '../asset/Cart'
 import NewIcon from '../asset/NewIcon'
 import Ranking from '../components/Ranking'
 import Rankingtwo from '../components/Rankingtwo'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useQuery } from 'react-query'
 import { getTodos } from '../axios/cart'
+import { cartCreate } from '../redux/modules/cart'
 const TopNav = ({ children, user }: any) => {
   const userInfo = getUser()
   const { pathname } = useLocation()
   const navigate = useNavigate()
-  const { isLoading, isError, data } = useQuery('todos', getTodos)
-
-  const crud = useSelector((state: any) => {
-    return state.cart.cart
-  }) //state는 중앙데이터 전체
-
-  console.log('crud.length : ', crud.length)
-
+  const dispatch = useDispatch()
+  const { isLoading, isError, data } = useQuery('cart', getTodos)
+  //
   const logoutHandler = () => {
     if (window.confirm('로그아웃 하시겠습니까?')) {
       removeUser()
@@ -38,70 +34,74 @@ const TopNav = ({ children, user }: any) => {
   return (
     <div>
       <Nav>
-        {userInfo ? null : ( // </InNavWrap> //   </InNav> //     <Button onClick={logoutHandler}>Logout</Button> //     <B>Hello ! {userInfo.sub}</B> 😃 //   <InNav> //   </div> //     </Link> //       <Logo /> //     <Link to="/"> //   <div> // <InNavWrap>
-          <>
-            <InNavWrap>
-              <div>
-                <Link to="/">
-                  <Logo />
-                </Link>
-              </div>
-              <MenuUl>
-                <li>커뮤니티</li>
-                <li>쇼핑</li>
-                <li>이사/시공/수리</li>
-              </MenuUl>
-              <div style={{ position: 'relative' }}>
-                <BoxWapperAbs>
-                  <SearchBox />
-                </BoxWapperAbs>
-                <Input type="text" placeholder="쇼핑검색" />
-              </div>
-              <div>
-                <BoxWapper onClick={() => navigate('/cart')}>
-                  <Cart></Cart>
-                  <CartLength>{data && data.length}</CartLength>
-                </BoxWapper>
-              </div>
-              <InNav>
+        <InNavWrap>
+          <div style={{ cursor: 'pointer' }}>
+            <Link to="/">
+              <Logo />
+            </Link>
+          </div>
+          <MenuUl>
+            <li>커뮤니티</li>
+            <li>쇼핑</li>
+            <li>이사/시공/수리</li>
+          </MenuUl>
+          <div style={{ position: 'relative' }}>
+            <BoxWapperAbs>
+              <SearchBox />
+            </BoxWapperAbs>
+            <Input type="text" placeholder="쇼핑검색" />
+          </div>
+          <InNav>
+            <BoxWapper onClick={() => navigate('/cart')}>
+              <Cart></Cart>
+              <CartLength>{!isLoading && data ? data.length : 0}</CartLength>
+            </BoxWapper>
+            {userInfo ? (
+              <>
+                <B> {userInfo.sub}</B>
+                {userInfo.userId}
+                <Button onClick={logoutHandler}>로그아웃</Button>
+              </>
+            ) : (
+              <>
                 <Button onClick={() => navigate('/Login')}>로그인</Button>
                 <Button onClick={() => navigate('/join')}>회원가입</Button>
                 <Button onClick={() => navigate('/')}>글쓰기</Button>
-              </InNav>
-            </InNavWrap>
-            <Ulwrappdiv>
-              <Ulwrapp>
-                <Item selected={pathname === '/'}>
-                  <Link to="/">쇼핑홈</Link>
-                </Item>
-                <Item selected={pathname === '/category'}>
-                  <Link to="/category">카테고리</Link>
-                </Item>
-                <Item selected={pathname === '/best'}>
-                  <Link to="/best">베스트</Link>
-                </Item>
-                <Item selected={pathname === '/todaydeal'}>
-                  <Link to="/todaydeal">오늘의딜</Link>
-                </Item>
-                <Item selected={pathname === '/ohgoods'}>
-                  오!굿즈
-                  <NewIcon />
-                </Item>
-                <Item>
-                  빠른배송
-                  <NewIcon />
-                </Item>
-                <Item>오!쇼룸</Item>
-                <Item>프리미엄</Item>
-                <Item>기획전</Item>
-              </Ulwrapp>
-              <span style={{ width: '200px' }}>
-                <Rankingtwo />
-              </span>
-              {/* <Ranking /> */}
-            </Ulwrappdiv>
-          </>
-        )}
+              </>
+            )}
+          </InNav>
+        </InNavWrap>
+        <Ulwrappdiv>
+          <Ulwrapp>
+            <Item selected={pathname === '/'}>
+              <Link to="/">쇼핑홈</Link>
+            </Item>
+            <Item selected={pathname === '/category'}>
+              <Link to="/category">카테고리</Link>
+            </Item>
+            <Item selected={pathname === '/best'}>
+              <Link to="/best">베스트</Link>
+            </Item>
+            <Item selected={pathname === '/todaydeal'}>
+              <Link to="/todaydeal">오늘의딜</Link>
+            </Item>
+            <Item selected={pathname === '/ohgoods'}>
+              오!굿즈
+              <NewIcon />
+            </Item>
+            <Item>
+              빠른배송
+              <NewIcon />
+            </Item>
+            <Item>오!쇼룸</Item>
+            <Item>프리미엄</Item>
+            <Item>기획전</Item>
+          </Ulwrapp>
+          <span style={{ width: '200px' }}>
+            <Rankingtwo />
+          </span>
+          {/* <Ranking /> */}
+        </Ulwrappdiv>
       </Nav>
       {children || <Outlet />}
     </div>
@@ -145,6 +145,7 @@ const MenuUl = styled.ul`
   gap: 50px;
 `
 const BoxWapper = styled.div`
+  cursor: pointer;
   position: relative;
   width: 20px;
 `

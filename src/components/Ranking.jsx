@@ -7,14 +7,6 @@ const dummy_data = [
   { rank: 2, text: '혼술안주' },
   { rank: 3, text: '여성 티셔츠' },
   { rank: 4, text: '핏플랍' },
-  // { rank: 5, text: '남성자켓' },
-  // { rank: 6, text: '가히' },
-  // { rank: 7, text: '스카치테이프' },
-  // { rank: 8, text: '프라다' },
-  // { rank: 9, text: '바비브라운 섀도우' },
-  // { rank: 10, text: '쿨피스' },
-  // { rank: 11, text: '아이러브제이' },
-  // { rank: 12, text: '내셔널지오그래픽 키즈' },
 ]
 
 // rank 순서대로 text값만 가진 배열 생성

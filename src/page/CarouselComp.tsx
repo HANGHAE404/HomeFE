@@ -34,7 +34,7 @@ function CarouselComp() {
           <SlideButton
             onClick={() => {
               previousSlide()
-              setIndex(index + 1)
+              setIndex(index % 5)
             }}
             style={{
               width: '48px',
@@ -65,7 +65,7 @@ function CarouselComp() {
           <SlideButton
             onClick={() => {
               nextSlide()
-              setIndex(index - 1)
+              setIndex(index + 1)
             }}
             style={{
               width: '48px',
@@ -107,14 +107,9 @@ function CarouselComp() {
           </div>
         ))}
       </Carousel>
-      <PageNum>
-        {/* {Data.map((pd: { id: number; src: string }, idx) => (
-          <div key={idx} onClick={() => setIndex(idx)}>
-            {index}
-          </div>
-        ))} */}
+      {/* <PageNum>
         {index}/{Data.length}
-      </PageNum>
+      </PageNum> */}
     </Wrapper>
   )
 }

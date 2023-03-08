@@ -4,7 +4,7 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import styled from 'styled-components'
 const data = [
-  { rank: 1, text: '베게' },
+  { rank: 1, text: '배게' },
   { rank: 2, text: '솜이불' },
   { rank: 3, text: '클라이너소파' },
   { rank: 4, text: '노트북방석' },

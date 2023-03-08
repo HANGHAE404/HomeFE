@@ -105,6 +105,7 @@ const BoxWrap = styled.div`
 const BoxEl = styled.div`
   width: calc((100% / 4) - 12px);
   margin-right: 15px;
+  margin-bottom: 25px;
   position: relative;
   &:nth-of-type(4n) {
     margin-right: inherit;
