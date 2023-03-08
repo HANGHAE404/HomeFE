@@ -15,8 +15,21 @@ import CategorySlide from '../components/CategorySlide'
 import PlusIcon from '../asset/PlusIcon'
 import { getUser } from '../util/localstorage'
 import { Link } from 'react-router-dom'
+import { useMutation } from 'react-query'
+// import { getGoods } from '../axios/'
 function Home() {
   const userInfo = getUser()
+
+  // const mutation = useMutation(getGoods)
+  // const CartBtnHandler = useCallback(
+  //   async (newTodo: any) => {
+  //     await mutation.mutateAsync(newTodo)
+  //     dispatch(cartCreate(newTodo))
+  //     alert('장바구니에 담았습니다.')
+  //   },
+  //   [mutation]
+  // )
+
   return (
     <div className="Home">
       {/* header */}
