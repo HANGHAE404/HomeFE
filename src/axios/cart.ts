@@ -7,6 +7,7 @@ const addTodos = async (newCart: any) => {
   await api.post(`/cart`, newCart)
 }
 const getTodos = async () => {
+  console.log(process.env)
   const res = await api.get(`/cart`)
   return res.data
 }

@@ -130,9 +130,9 @@ function DetailPage() {
 
   const mutation = useMutation(addTodos)
   const CartBtnHandler = useCallback(
-    async (newTodo: any) => {
-      await mutation.mutateAsync(newTodo)
-      dispatch(cartCreate(newTodo))
+    async (newCart: any) => {
+      await mutation.mutateAsync(newCart)
+      dispatch(cartCreate(newCart))
       alert('장바구니에 담았습니다.')
     },
     [mutation]

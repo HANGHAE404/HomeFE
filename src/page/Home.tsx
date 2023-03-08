@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import styled from 'styled-components'
 import Icon from '../asset/Icon'
 import MenuCategorys from '../components/MenuCategory'
@@ -15,20 +15,20 @@ import CategorySlide from '../components/CategorySlide'
 import PlusIcon from '../asset/PlusIcon'
 import { getUser } from '../util/localstorage'
 import { Link } from 'react-router-dom'
-import { useMutation } from 'react-query'
-// import { getGoods } from '../axios/'
+import { useQuery } from 'react-query'
+import { getGoods } from '../axios/goods'
+import { useInView } from 'react-intersection-observer'
+import BoxItemFetchData from '../components/BoxItemFetchData'
 function Home() {
   const userInfo = getUser()
 
-  // const mutation = useMutation(getGoods)
-  // const CartBtnHandler = useCallback(
-  //   async (newTodo: any) => {
-  //     await mutation.mutateAsync(newTodo)
-  //     dispatch(cartCreate(newTodo))
-  //     alert('장바구니에 담았습니다.')
-  //   },
-  //   [mutation]
-  // )
+  const {
+    isLoading,
+    isError,
+    data: datas,
+  } = useQuery('goods', () => getGoods(5, 4) as any)
+
+  // console.log('datas :', datas)
 
   return (
     <div className="Home">
@@ -39,6 +39,7 @@ function Home() {
       <Wrapper>
         <BoxItem data={todayDealData} text={'오늘의딜'} />
         <CategorySlide data={CategorySlideData} />
+        <BoxItemFetchData data={datas} text={'테스트'} />
         <BoxItem data={PopProductsData} text={'인기상품'} />
       </Wrapper>
       {userInfo && userInfo ? (

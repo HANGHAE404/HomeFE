@@ -6,21 +6,14 @@ import '../index.css'
 import { Link } from 'react-router-dom'
 import Logo from '../asset/Logo'
 import SearchBox from '../asset/SearchBox'
-import Cart from '../asset/Cart'
 import NewIcon from '../asset/NewIcon'
 import Ranking from '../components/Ranking'
 import Rankingtwo from '../components/Rankingtwo'
-import { useDispatch, useSelector } from 'react-redux'
-import { useQuery } from 'react-query'
-import { getTodos } from '../axios/cart'
-import { cartCreate } from '../redux/modules/cart'
+import CartComponent from '../components/CartComponent'
 const TopNav = ({ children, user }: any) => {
   const userInfo = getUser()
   const { pathname } = useLocation()
   const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const { isLoading, isError, data } = useQuery('cart', getTodos)
-  //
   const logoutHandler = () => {
     if (window.confirm('로그아웃 하시겠습니까?')) {
       removeUser()
@@ -52,14 +45,10 @@ const TopNav = ({ children, user }: any) => {
             <Input type="text" placeholder="쇼핑검색" />
           </div>
           <InNav>
+            {/* 따로빼기 카트렝스 컴포넌트와 useQuery data 부분 */}
             {userInfo ? (
               <>
-                <BoxWapper onClick={() => navigate('/cart')}>
-                  <Cart></Cart>
-                  <CartLength>
-                    {!isLoading && data ? data.length : 0}
-                  </CartLength>
-                </BoxWapper>
+                <CartComponent />
                 <B> {userInfo.sub}</B>
                 {userInfo.userId}
                 <Button onClick={logoutHandler}>로그아웃</Button>
@@ -110,7 +99,7 @@ const TopNav = ({ children, user }: any) => {
   )
 }
 
-const CartLength = styled.div`
+export const CartLength = styled.div`
   background-color: red;
   color: white;
   width: 17px;
@@ -143,7 +132,7 @@ const MenuUl = styled.ul`
   display: flex;
   gap: 50px;
 `
-const BoxWapper = styled.div`
+export const BoxWapper = styled.div`
   cursor: pointer;
   position: relative;
   width: 20px;

@@ -1,7 +1,7 @@
 import Carousel from 'nuka-carousel/lib/carousel'
 import React from 'react'
 import styled from 'styled-components'
-import { Img, TitleEl, TopTitle } from './BoxItem'
+import { TitleEl, TopTitle } from './BoxItem'
 interface Idata {
   id: number
   src: string
@@ -30,6 +30,14 @@ const CategorySlide = ({ data }: IdataObj) => {
   )
 }
 
+const Img = styled.img`
+  /* position: absolute;
+  top: 50%;
+  left: 50%; */
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.2s;
+`
 const Wrapper = styled.div`
   margin-top: 50px;
   cursor: pointer;
