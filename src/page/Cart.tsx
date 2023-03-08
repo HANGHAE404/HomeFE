@@ -22,9 +22,11 @@ interface ICartProps {
   data: Idata[] | null
 }
 
+
 // data && data.map((el: any) => {})
 // 갯수 셀렉트 클릭시 가격변동
 function Cart() {
+
   const dataFake = [
     {
       id: 0,
@@ -46,6 +48,7 @@ function Cart() {
     // },
   ]
 
+
   // const cartData =
   //   data === null ? (
   //     <>
@@ -65,10 +68,12 @@ function Cart() {
   //     />
   //   )
   // }
+
   // console.log(data)
   return (
     <div>
       {/* {cartData.map((el: any) => (
+
         <img src={el.src} alt={el.title} key={el.id} />
       ))} */}
       Cartpage
