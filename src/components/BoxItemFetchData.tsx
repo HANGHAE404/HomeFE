@@ -39,7 +39,7 @@ const BoxItemFetchData = ({
       </TopTitle>
       <BoxWrap>
         {datas &&
-          datas?.data?.map((el: any, idx: any) => (
+          datas?.map((el: any, idx: any) => (
             <BoxEl key={el.goodsId}>
               <Link to={`/detailpage/${el.goodsId}`}>
                 {el.src !== null ? (
@@ -47,7 +47,7 @@ const BoxItemFetchData = ({
                 ) : (
                   <Img
                     src={
-                      'https://mozz-bucket.s3.ap-northeast-2.amazonaws.com/1678254218333_1.jpg'
+                      'https://padletuploads.blob.core.windows.net/prod/338313757/xv9cNVhJOnCldshv-zjMjA/f41906143bc5eb004cac88418b2a97a7.jpeg'
                     }
                   />
                 )}

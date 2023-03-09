@@ -112,20 +112,6 @@ function DetailPage() {
   const [isData, setData] = useState<any>(data)
   const params = useParams()
 
-  // const CartBtnHandler = () => {
-  //   if (!userInfo) {
-  //     alert('비회원입니다.')
-  //     return
-  //   } else {
-  //     alert('장바구니에 담았습니다.')
-  //     mutation.mutate(data)
-  //   }
-  // }
-  // const mutation = useMutation(addTodos, {
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries('cart', { refetchInactive: true })
-  //   },
-  // })
   const dispatch = useDispatch()
 
   const mutation = useMutation(addTodos)

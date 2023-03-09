@@ -34,7 +34,6 @@ function Login() {
       const response = await axios
         .post(`http://15.165.18.86:3000/api/login`, data)
         .then((res) => {
-          console.log(res)
           let token = res.data.token
           setCookie('accessToken', token) // 쿠키에저장
           const decodedUserInfo = jwt_decode(token)

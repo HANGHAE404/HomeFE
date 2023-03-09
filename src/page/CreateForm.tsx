@@ -257,8 +257,12 @@ const ImgForm = styled.label`
   height: 400px;
   object-fit: cover;
   border-radius: 15px;
-  border: 1px solid #ddd;
+  text-align: center;
+  border: 1px solid rgb(221, 221, 221);
   cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  display: flex;
 `
 const Img = styled.img`
   width: 400px;
